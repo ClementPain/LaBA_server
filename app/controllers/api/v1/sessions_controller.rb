@@ -19,17 +19,16 @@ class Api::V1::SessionsController < ApplicationController
   end
 
   def logged_in
-    puts '&&&&&&&&&&&&&&'
-    puts @current_user
-    puts '&&&&&&&&&&&&&&'
-
     if @current_user
       render json: {
         logged_in: true,
         user: @current_user
       }
     else
-      render json: { logged_in: false }
+      render json: {
+        logged_in: false,
+        status: 200
+      }
     end
   end
 
