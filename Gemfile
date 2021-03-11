@@ -41,4 +41,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # additional gems
 gem 'bcrypt', '~> 3.1', '>= 3.1.16'
-gem 'rack-cors', '~> 1.1', '>= 1.1.1'
+gem 'rack-cors', require: 'rack/cors'
+gem 'table_print'
