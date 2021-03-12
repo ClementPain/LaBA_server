@@ -26,8 +26,7 @@ class Api::V1::SessionsController < ApplicationController
       }
     else
       render json: {
-        logged_in: false,
-        status: 200
+        logged_in: false
       }
     end
   end
