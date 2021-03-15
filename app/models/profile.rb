@@ -1,3 +1,3 @@
-class UserProfile < ApplicationRecord
+class Profile < ApplicationRecord
   belongs_to :user
 end
