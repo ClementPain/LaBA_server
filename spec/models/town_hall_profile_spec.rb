@@ -1,36 +1,32 @@
 require 'rails_helper'
 
 RSpec.describe TownHallProfile, type: :model do
-  it "should create profile" do
-    user = User.new(email: 'test@test.fr', password: 'testfr', password_confirmation: 'testfr', role: 1)
-    user.town_hall_profile = TownHallProfile.new(name: 'Mairie de test')
-    user.save
+  it "should create town hall profile" do
+    user = create(:town_hall)
+    profile = build(:town_hall_profile, user: user)
 
-    expect(User.count).to eq(1)
-    expect(user.town_hall_profile.name).to eq('Mairie de test')
-    expect(TownHallProfile.count).to eq(1)
-  end
-
-  it "should not create profile: no user" do
-    TownHallProfile.create(name: 'Mairie de test')
-
-    expect(TownHallProfile.count).to eq(0)
+    expect(user.town_hall_profile.name).to eq('Mairie de Test')
+    expect(profile.valid?).to be true
   end
 
   context 'check validations' do
-    it 'should not create profile: user already taken' do
-      user = User.create(email: 'test@test.fr', password: 'testfr', password_confirmation: 'testfr', role: 1)
-      profile1 =  TownHallProfile.create(name: 'Mairie de test', user_id: user.id)
-      profile2 =  TownHallProfile.create(name: 'Mairie de test', user_id: user.id)
-
-      expect(TownHallProfile.count).to eq(1)
+    it "should not create profile: no user" do
+      profile = TownHallProfile.new(name: 'Mairie de test')
+  
+      expect(profile.valid?).to be false
     end
 
-    it 'should not create profile: user is a town_hall' do
-      user = User.create(email: 'test@test.fr', password: 'testfr', password_confirmation: 'testfr', role: 0)
-      profile =  TownHallProfile.create(name: 'Mairie de test', user_id: user.id)
+    it 'should not create profile: user already taken' do
+      profile1 = create(:town_hall_profile)
+      profile2 = build(:town_hall_profile, user: profile1.user)
 
-      expect(TownHallProfile.count).to eq(0)
+      expect(profile2.valid?).to be false
+    end
+
+    it 'should not create profile: user is a villager' do
+      profile = build(:town_hall_profile, user: create(:villager))
+
+      expect(profile.valid?).to be false
     end
   end
 end

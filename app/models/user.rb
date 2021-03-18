@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  enum role: [:villager, :town_hall]
+  enum role: [:villager, :town_hall], _default: :villager
 
   has_secure_password
   
@@ -9,7 +9,6 @@ class User < ApplicationRecord
     format: { with: URI::MailTo::EMAIL_REGEXP, message: 'email format is incorrect' }
 
   validates :password, length: { in: 6..40 }
-
 
   has_one :profile, dependent: :destroy
   has_one :town_hall_profile, dependent: :destroy
