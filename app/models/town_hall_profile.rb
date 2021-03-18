@@ -1,8 +1,10 @@
 class TownHallProfile < ApplicationRecord
   belongs_to :user
-
-  validates_uniqueness_of :user_id, :message => "User can only have one Profile"
+ 
+  validates_uniqueness_of :user_id, message: "User can only have one Profile"
   validate :user_role
+
+  validates :name, length: { in: 4..50 }, presence: true
 
   private
 
