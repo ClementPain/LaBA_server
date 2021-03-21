@@ -22,9 +22,11 @@ class Api::V1::RegistrationsController < ApplicationController
       include: :profile,
       status: :created
     else
+      error_message = user.errors
+
       User.find(user.id).destroy if user.id && User.find(user.id)
 
-      render json: { status: :unprocessable_entity },
+      render json: { error_message: error_message, status: :unprocessable_entity },
         status: :unprocessable_entity,
         message: "Incorrect information"
     end
