@@ -5,8 +5,8 @@ class Profile < ActiveRecord::Base
   validates_presence_of :user_id, message: "Profile must have a User"
   validate :user_role
 
-  validates :first_name, length: { in: 2..30 }, presence: true
-  validates :last_name, length: { in: 2..30 }, presence: true
+  validates :first_name, length: { in: 2..40 }, presence: true
+  validates :last_name, length: { in: 2..40 }, presence: true
 
   private
 
