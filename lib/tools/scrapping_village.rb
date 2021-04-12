@@ -34,27 +34,29 @@ def update_department_list(url)
       
       if this_village = Village.find_by(name: town_name)
         if town_mail.length > 0
-          this_village.update(email: town_mail, zip_code: town_zip_code)
+          this_village.update(email: town_mail, zip_code: town_zip_code, insee_code: town_insee_code)
         else
-          this_village.update(zip_code: town_zip_code)
+          this_village.update(zip_code: town_zip_code, insee_code: town_insee_code)
         end
         
+        puts this_village
+
         # if !Forum.find_by(title: "Forum principal", village: this_village)
         #     Forum.initialization(this_village)
         # end
       else
         puts town_mail
         if town_mail.length > 0
-          this_village = Village.new(name: town_name, email: town_mail, zip_code: town_zip_code)
+          this_village = Village.new(name: town_name, email: town_mail, zip_code: town_zip_code, insee_code: town_insee_code)
         else
-          this_village = Village.new(name: town_name, zip_code: town_zip_code)
+          this_village = Village.new(name: town_name, zip_code: town_zip_code, insee_code: town_insee_code)
         end
 
+        puts this_village
         puts this_village.valid?
 
         if this_village.valid?
           this_village.save
-          puts Village.count
           # Forum.initialization(this_village)
         else
           errors_array.push([this_village.name, this_village.email, this_village.zip_code])
