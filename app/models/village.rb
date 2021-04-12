@@ -56,7 +56,7 @@ class Village < ApplicationRecord
     puts insee
     puts this_mail
 
-    village = Village.new(name: town_name, email: "test@test.fr", zip_code: zip, insee_code: "00000")
+    village = Village.new(name: town_name, email: "test@test.fr", zip_code: zip, insee_code: insee)
 
     puts village.save
 
