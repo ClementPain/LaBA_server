@@ -32,27 +32,25 @@ def update_department_list(url)
       town_insee_code = get_townhall_insee_code(town_name_url)
       town_zip_code = get_townhall_zip_code(town_name_url)
       
+      puts town_name
+
       if this_village = Village.find_by(name: town_name)
         if town_mail.length > 0
           this_village.update(email: town_mail, zip_code: town_zip_code, insee_code: town_insee_code)
         else
           this_village.update(zip_code: town_zip_code, insee_code: town_insee_code)
         end
-        
-        puts this_village
 
         # if !Forum.find_by(title: "Forum principal", village: this_village)
         #     Forum.initialization(this_village)
         # end
       else
-        puts town_mail
         if town_mail.length > 0
           this_village = Village.new(name: town_name, email: town_mail, zip_code: town_zip_code, insee_code: town_insee_code)
         else
           this_village = Village.new(name: town_name, zip_code: town_zip_code, insee_code: town_insee_code)
         end
 
-        puts this_village
         puts this_village.valid?
 
         if this_village.valid?
