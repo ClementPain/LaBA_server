@@ -50,8 +50,11 @@ def update_department_list(url)
           this_village = Village.new(name: town_name, zip_code: town_zip_code)
         end
 
+        puts this_village.valid?
+
         if this_village.valid?
           this_village.save
+          puts Village.count
           # Forum.initialization(this_village)
         else
           errors_array.push([this_village.name, this_village.email, this_village.zip_code])
