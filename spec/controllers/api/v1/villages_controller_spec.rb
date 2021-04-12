@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::VillagesController, type: :controller do
-  describe '#create' do
+  describe '#index' do
 
     context '#valid call' do
       before do
